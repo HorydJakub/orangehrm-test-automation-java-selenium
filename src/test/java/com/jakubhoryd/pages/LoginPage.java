@@ -24,6 +24,9 @@ public class LoginPage {
     @FindBy(css = "button.orangehrm-login-button")
     private WebElement loginBtn;
 
+    @FindBy(css = "div.orangehrm-login-error p.oxd-alert-content-text")
+    public WebElement invalidCredentialsWarning;
+
     public LoginPage(WebDriver driver) throws IOException {
         PageFactory.initElements(driver, this);
         int timeToWaitForElement = Integer.parseInt(PropertiesLoader.loadProperty("wait.timeToWaitForElement"));
