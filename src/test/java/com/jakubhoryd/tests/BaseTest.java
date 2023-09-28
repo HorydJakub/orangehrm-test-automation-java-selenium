@@ -4,6 +4,8 @@ import com.jakubhoryd.utils.DateHelper;
 import com.jakubhoryd.utils.DriverFactory;
 import com.jakubhoryd.utils.PropertyHelper;
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +19,7 @@ import java.io.IOException;
 public class BaseTest {
 
     protected WebDriver driver;
+    protected static final Logger logger = LogManager.getLogger();
 
     @BeforeMethod
     public void setup() throws IOException {
@@ -31,7 +34,7 @@ public class BaseTest {
         if (ITestResult.FAILURE == result.getStatus()) {
             File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(screenshotFile, new File(PropertyHelper.getFailedTestsScreenshotDirectory() + DateHelper.getCurrentTimeStamp() + PropertyHelper.getPreferedScreenshotExtension()));
-            // ToDo: Implement log message about failed test: TimeStamp + LocationOfTheFIle
+            logger.error(String.format("Test failed, saving screenshot in: %s", PropertyHelper.getFailedTestsScreenshotDirectory()));
         }
         driver.quit();
     }
