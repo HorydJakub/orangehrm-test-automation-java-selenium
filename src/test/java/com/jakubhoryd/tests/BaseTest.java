@@ -24,7 +24,7 @@ public class BaseTest {
     @BeforeMethod
     public void setup() throws IOException {
         driver = DriverFactory.getDriver();
-        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        driver.get(PropertyHelper.getProdEnvironment());
         driver.manage().window().maximize();
     }
 

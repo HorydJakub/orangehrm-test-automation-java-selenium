@@ -15,4 +15,8 @@ public class PropertyHelper {
     public static String getPreferedScreenshotExtension() throws IOException {
         return PropertiesLoader.loadProperty("screenshot.preferedScreenshotExtension");
     }
+
+    public static String getProdEnvironment() throws IOException {
+        return PropertiesLoader.loadProperty("environment.prod");
+    }
 }
