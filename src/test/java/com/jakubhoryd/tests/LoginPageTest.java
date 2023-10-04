@@ -3,6 +3,8 @@ package com.jakubhoryd.tests;
 import com.jakubhoryd.pages.DashboardPage;
 import com.jakubhoryd.pages.LoginPage;
 import com.jakubhoryd.utils.PropertyHelper;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -28,6 +30,7 @@ public class LoginPageTest extends BaseTest {
     }
 
     @Test(testName = "TC-37", description = "LoginPage: Login with valid data")
+    @Severity(SeverityLevel.BLOCKER)
     public void loginWithValidDataTest() {
 
         loginPage.login("Admin", "admin123");
@@ -37,6 +40,7 @@ public class LoginPageTest extends BaseTest {
     }
 
     @Test(testName = "TC-38", description = "LoginPage: Login with valid username and wrong password")
+    @Severity(SeverityLevel.BLOCKER)
     public void loginWithValidUserNameAndWrongPasswordTest() {
 
         loginPage.login("Admin", "wrong#P@ssw0rd");
