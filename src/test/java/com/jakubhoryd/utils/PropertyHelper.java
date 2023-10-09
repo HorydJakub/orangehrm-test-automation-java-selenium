@@ -19,4 +19,8 @@ public class PropertyHelper {
     public static String getProdEnvironment() throws IOException {
         return PropertiesLoader.loadProperty("environment.prod");
     }
+
+    public static String getDeploymentVersion() throws IOException {
+        return PropertiesLoader.loadProperty("deployment.version");
+    }
 }
