@@ -10,12 +10,10 @@ import io.qameta.allure.SeverityLevel;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
@@ -25,13 +23,11 @@ public class LoginPageTest extends BaseTest {
 
     private LoginPage loginPage;
     private DashboardPage dashboardPage;
-    private WebDriverWait wait;
 
     @BeforeMethod
     public void beforeMethod() throws IOException {
-        loginPage = new LoginPage(driver);
-        dashboardPage = new DashboardPage(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(PropertyHelper.getWaitingTimeForElements()));
+        loginPage = new LoginPage(driver, wait);
+        dashboardPage = new DashboardPage(driver, wait);
     }
 
     @Test(testName = "TC-37", description = "LoginPage: Login with valid data")
@@ -76,7 +72,7 @@ public class LoginPageTest extends BaseTest {
 
         //  Not logged into the portal. The login page is still visible. 'Required' error message is displayed under 'Password' and 'Username' input.
         loginPage.requiredFieldErrorMessages.forEach(el -> wait.until(ExpectedConditions.visibilityOf(el)));
-        loginPage.requiredFieldErrorMessages.stream().allMatch(el -> el.getText().equals("Required"));
+        assertThat(loginPage.requiredFieldErrorMessages.stream().allMatch(el -> el.getText().equals("Required"))).isTrue();
     }
 
     @Test(testName = "TC-40", description = "LoginPage: Login page - Overview", groups = "smokeTests")
@@ -101,7 +97,7 @@ public class LoginPageTest extends BaseTest {
         softAssertions.assertThat(loginPage.forgotPasswordOption.isDisplayed()).isTrue();
 
         // Validate the display of social media buttons.
-        loginPage.socialMediaBtns.stream().allMatch(WebElement::isDisplayed);
+        assertThat(loginPage.socialMediaBtns.stream().allMatch(WebElement::isDisplayed)).isTrue();
 
         // Ensure the presence of the "All rights reserved" information.
         // The exact text is formatted as follows: OrangeHRM OS {$OS_Version_Number} © 2005 - {$Current_Year} OrangeHRM, Inc. All rights reserved
