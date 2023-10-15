@@ -1,14 +1,11 @@
 package com.jakubhoryd.pages;
 
-import com.jakubhoryd.utils.PropertiesLoader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
-import java.time.Duration;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -58,10 +55,9 @@ public class LoginPage {
     @FindBy(xpath = "//a[contains(@href, 'www.youtube.com')]")
     public WebElement youtubeBtn;
 
-    public LoginPage(WebDriver driver) throws IOException {
+    public LoginPage(WebDriver driver, WebDriverWait wait) {
         PageFactory.initElements(driver, this);
-        int timeToWaitForElement = Integer.parseInt(PropertiesLoader.loadProperty("wait.timeToWaitForElement"));
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeToWaitForElement));
+        this.wait = wait;
     }
 
     public void login(String username, String password) {
