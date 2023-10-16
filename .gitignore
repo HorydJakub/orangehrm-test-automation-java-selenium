@@ -40,3 +40,7 @@ build/
 
 #openhrm
 /src/test/resources/openhrm.properties
+
+#allure
+allure-results*
+.allure*
