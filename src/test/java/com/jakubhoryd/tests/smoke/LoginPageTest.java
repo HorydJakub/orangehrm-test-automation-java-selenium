@@ -2,8 +2,8 @@ package com.jakubhoryd.tests;
 
 import com.jakubhoryd.pages.DashboardPage;
 import com.jakubhoryd.pages.LoginPage;
-import com.jakubhoryd.utils.DateHelper;
-import com.jakubhoryd.utils.PropertyHelper;
+import com.jakubhoryd.core.utils.DateHelper;
+import com.jakubhoryd.core.utils.PropertyHelper;
 import io.netty.util.internal.StringUtil;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -77,7 +77,7 @@ public class LoginPageTest extends BaseTest {
 
     @Test(testName = "TC-40", description = "LoginPage: Login page - Overview", groups = "smokeTests")
     @Severity(SeverityLevel.NORMAL)
-    public void loginPageOverviewTest() throws IOException {
+    public void loginPageOverviewTest() {
 
         SoftAssertions softAssertions = new SoftAssertions();
 
