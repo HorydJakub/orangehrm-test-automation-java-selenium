@@ -1,4 +1,4 @@
-package core.testrail;
+package com.jakubhoryd.core.testrail;
 
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -15,7 +15,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.util.Base64;
 
-import core.GlobalConfig;
+import com.jakubhoryd.core.utils.PropertyHelper;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -28,7 +28,7 @@ public class APIClient
 
 	public APIClient()
 	{
-		this.m_url = GlobalConfig.TESTRAIL_URL;
+		this.m_url = PropertyHelper.getTestrailUri();
 
 		if (!m_url.endsWith("/"))
 		{
@@ -36,8 +36,8 @@ public class APIClient
 		}
 		
 		this.m_url = m_url + "index.php?/api/v2/";
-		this.m_user = GlobalConfig.TESTRAIL_USERNAME;
-		this.m_password = GlobalConfig.TESTRAIL_PASSWORD;
+		this.m_user = PropertyHelper.getTestrailUsername();
+		this.m_password = PropertyHelper.getTestrailApiKey();
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.jakubhoryd.utils;
+package com.jakubhoryd.core.utils;
 
 import java.text.SimpleDateFormat;
 

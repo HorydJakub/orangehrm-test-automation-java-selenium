@@ -1,6 +1,6 @@
 package com.jakubhoryd.elements;
 
-import com.jakubhoryd.utils.PropertyHelper;
+import com.jakubhoryd.core.utils.PropertyHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

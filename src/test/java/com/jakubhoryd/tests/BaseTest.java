@@ -1,8 +1,9 @@
 package com.jakubhoryd.tests;
 
-import com.jakubhoryd.utils.DateHelper;
-import com.jakubhoryd.utils.DriverFactory;
-import com.jakubhoryd.utils.PropertyHelper;
+import com.jakubhoryd.core.listeners.TestListener;
+import com.jakubhoryd.core.utils.DateHelper;
+import com.jakubhoryd.core.utils.DriverFactory;
+import com.jakubhoryd.core.utils.PropertyHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,14 +12,15 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
+@Listeners(TestListener.class)
 public class BaseTest {
 
     protected WebDriver driver;
@@ -38,7 +40,7 @@ public class BaseTest {
 
         if (ITestResult.FAILURE == result.getStatus()) {
             File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(screenshotFile, new File(PropertyHelper.getFailedTestsScreenshotDirectory() + DateHelper.getCurrentTimeStamp() + PropertyHelper.getPreferedScreenshotExtension()));
+            FileUtils.copyFile(screenshotFile, new File(PropertyHelper.getFailedTestsScreenshotDirectory() + DateHelper.getCurrentTimeStamp() + PropertyHelper.getPreferredScreenshotExtension()));
             logger.error(String.format("Test failed, saving screenshot in: %s", PropertyHelper.getFailedTestsScreenshotDirectory()));
         }
         driver.quit();
