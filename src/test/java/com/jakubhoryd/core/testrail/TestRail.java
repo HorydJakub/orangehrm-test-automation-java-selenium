@@ -1,4 +1,4 @@
-package core.testrail;
+package com.jakubhoryd.core.testrail;
 
 
 import java.lang.annotation.ElementType;

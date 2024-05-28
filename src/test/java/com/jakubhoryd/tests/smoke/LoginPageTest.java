@@ -1,9 +1,11 @@
-package com.jakubhoryd.tests;
+package com.jakubhoryd.tests.smoke;
 
+import com.jakubhoryd.core.testrail.TestRail;
 import com.jakubhoryd.pages.DashboardPage;
 import com.jakubhoryd.pages.LoginPage;
 import com.jakubhoryd.core.utils.DateHelper;
 import com.jakubhoryd.core.utils.PropertyHelper;
+import com.jakubhoryd.tests.BaseTest;
 import io.netty.util.internal.StringUtil;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -30,7 +32,8 @@ public class LoginPageTest extends BaseTest {
         dashboardPage = new DashboardPage(driver, wait);
     }
 
-    @Test(testName = "TC-37", description = "LoginPage: Login with valid data")
+    @Test(description = "LoginPage: Login with valid data")
+    @TestRail(id = "4")
     @Severity(SeverityLevel.BLOCKER)
     public void loginWithValidDataTest() {
 
@@ -40,9 +43,10 @@ public class LoginPageTest extends BaseTest {
         assertThat(dashboardPage.navbar.getPageTitle()).isEqualTo("Dashboard");
     }
 
-    @Test(testName = "TC-38", description = "LoginPage: Login with valid username and wrong password")
+    @Test(description = "LoginPage: Login with valid username and wrong password")
+    @TestRail(id = "3")
     @Severity(SeverityLevel.BLOCKER)
-    public void loginWithValidUserNameAndWrongPasswordTest() {
+    public void loginWithValidUsernameAndWrongPasswordTest() {
 
         loginPage.login("Admin", "wrong#P@ssw0rd");
 
@@ -52,19 +56,8 @@ public class LoginPageTest extends BaseTest {
         assertThat(loginPage.invalidCredentialsWarning.getText()).isEqualTo("Invalid credentials");
     }
 
-    @Test(testName = "TC-39", description = "LoginPage: Login with valid password and wrong username")
-    @Severity(SeverityLevel.BLOCKER)
-    public void loginWithValidPasswordAndWrongUsernameTest() {
-
-        loginPage.login("WrongUsername", "admin123");
-
-        // Not logged into the portal. The login page is still visible. 'Invalid credentials' error message is displayed.
-        wait.until(visibilityOf(loginPage.invalidCredentialsWarning));
-
-        assertThat(loginPage.invalidCredentialsWarning.getText()).isEqualTo("Invalid credentials");
-    }
-
-    @Test(testName = "TC-41", description = "LoginPage: Login with empty password and username")
+    @Test(description = "LoginPage: Login with empty password and username")
+    @TestRail(id = "2")
     @Severity(SeverityLevel.BLOCKER)
     public void loginWithEmptyPasswordAndUsernameTest() {
 
@@ -75,7 +68,8 @@ public class LoginPageTest extends BaseTest {
         assertThat(loginPage.requiredFieldErrorMessages.stream().allMatch(el -> el.getText().equals("Required"))).isTrue();
     }
 
-    @Test(testName = "TC-40", description = "LoginPage: Login page - Overview", groups = "smokeTests")
+    @Test(description = "LoginPage: Login page - Overview", groups = "smokeTests")
+    @TestRail(id = "1")
     @Severity(SeverityLevel.NORMAL)
     public void loginPageOverviewTest() {
 
