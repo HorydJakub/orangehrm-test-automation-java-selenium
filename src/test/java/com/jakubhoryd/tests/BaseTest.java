@@ -33,7 +33,7 @@ public class BaseTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(PropertyHelper.getWaitingTimeForElements()));
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) throws IOException {
 
         if (ITestResult.FAILURE == result.getStatus()) {
@@ -41,10 +41,6 @@ public class BaseTest {
             FileUtils.copyFile(screenshotFile, new File(PropertyHelper.getFailedTestsScreenshotDirectory() + DateHelper.getCurrentTimeStamp() + PropertyHelper.getPreferedScreenshotExtension()));
             logger.error(String.format("Test failed, saving screenshot in: %s", PropertyHelper.getFailedTestsScreenshotDirectory()));
         }
-    }
-
-    @AfterClass
-    public void afterClass() {
         driver.quit();
     }
 }
