@@ -1,4 +1,4 @@
-package com.jakubhoryd.tests.smoke;
+package com.jakubhoryd.tests.login;
 
 import com.jakubhoryd.core.testrail.TestRail;
 import com.jakubhoryd.pages.DashboardPage;
@@ -27,7 +27,7 @@ public class LoginPageTest extends BaseTest {
     private DashboardPage dashboardPage;
 
     @BeforeMethod
-    public void beforeMethod() throws IOException {
+    public void beforeMethod() {
         loginPage = new LoginPage(driver, wait);
         dashboardPage = new DashboardPage(driver, wait);
     }
