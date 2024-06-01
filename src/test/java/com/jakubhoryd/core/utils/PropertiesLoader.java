@@ -33,16 +33,13 @@ public class PropertiesLoader {
             String value = properties.getProperty(propertyName);
 
             // parse values based on propertyType
-            switch (propertyType.getSimpleName()) {
-                case "String":
-                    return propertyType.cast(value);
-                case "Integer":
-                    return propertyType.cast(Integer.parseInt(value));
-                case "Boolean":
-                    return propertyType.cast(Boolean.parseBoolean(value));
-                default:
-                    throw new PropertiesLoadingException("Unsupported property type: " + propertyType.getSimpleName(), null);
-            }
+            return switch (propertyType.getSimpleName()) {
+                case "String" -> propertyType.cast(value);
+                case "Integer" -> propertyType.cast(Integer.parseInt(value));
+                case "Boolean" -> propertyType.cast(Boolean.parseBoolean(value));
+                default ->
+                        throw new PropertiesLoadingException("Unsupported property type: " + propertyType.getSimpleName(), null);
+            };
         } catch (IOException | NumberFormatException e) {
             throw new PropertiesLoadingException("Failed to load property: " + propertyName, e);
         }
