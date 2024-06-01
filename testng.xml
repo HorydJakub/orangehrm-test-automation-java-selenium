@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="methods" thread-count="2">
-    <test name="test1">
-        <classes>
-            <class name="com.jakubhoryd.tests.login.LoginPageTest">
-
-            </class>
-        </classes>
+<suite name="All Test Suite" parallel="classes" thread-count="2">
+    <test name="regression">
+        <packages>
+            <package name="com.jakubhoryd.tests.login"/>
+            <package name="com.jakubhoryd.tests.buzz"/>
+        </packages>
     </test>
 </suite>

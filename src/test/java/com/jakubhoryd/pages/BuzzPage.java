@@ -1,34 +1,22 @@
 package com.jakubhoryd.pages;
 
+import com.jakubhoryd.elements.buzz.PublishNewPostMenu;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeSelected;
-
 public class BuzzPage {
 
-    private final WebDriverWait wait;
-
-    @FindBy(css = "div.oxd-buzz-post--active textarea")
-    public WebElement postTextContentTextarea;
-
-    @FindBy(css = "div.oxd-buzz-post-slot button")
-    public WebElement postButton;
+    private final PublishNewPostMenu publishNewPostMenu;
 
     public BuzzPage(WebDriver driver, WebDriverWait wait) {
         PageFactory.initElements(driver, this);
-        this.wait = wait;
+        publishNewPostMenu = new PublishNewPostMenu(driver, wait);
     }
 
     public BuzzPage publishNewPost(String text) {
-        wait.until(elementToBeClickable(postTextContentTextarea)).sendKeys(text);
-        wait.until(elementToBeClickable(postButton)).click();
+        publishNewPostMenu.enterPostText(text);
+        publishNewPostMenu.clickPostButton();
         return this;
     }
 }
