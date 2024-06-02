@@ -20,9 +20,10 @@ public class PublishNewPostMenu {
         PageFactory.initElements(driver, this);
     }
 
-    public void enterPostText(String text) {
+    public PublishNewPostMenu enterPostText(String text) {
         WebElement textArea = wait.until(visibilityOfElementLocated(POST_TEXT_CONTENT_TEXTAREA_LOCATOR));
         textArea.sendKeys(text);
+        return this;
     }
 
     public void clickPostButton() {
