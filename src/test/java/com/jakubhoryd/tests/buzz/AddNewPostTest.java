@@ -1,6 +1,7 @@
 package com.jakubhoryd.tests.buzz;
 
 import com.jakubhoryd.core.testrail.TestRail;
+import com.jakubhoryd.core.utils.StringHelper;
 import com.jakubhoryd.enums.NavmenuOption;
 import com.jakubhoryd.pages.BuzzPage;
 import com.jakubhoryd.pages.DashboardPage;
@@ -10,6 +11,8 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class AddNewPostTest extends BaseTest {
 
@@ -30,6 +33,8 @@ public class AddNewPostTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void publishNewPostWithoutAttachmentsTest() {
 
+        String textForPost = StringHelper.getUniqueStringFromCurrentDate();
+
         // Login into portal as admin
         loginPage.login("Admin", "admin123");
 
@@ -37,6 +42,9 @@ public class AddNewPostTest extends BaseTest {
         dashboardPage.sidenav.goToMenu(NavmenuOption.BUZZ);
 
         // Publish new post without attachments
-        buzzPage.publishNewPost("Hello world!!!");
+        buzzPage.publishNewPostMenu.enterPostText(textForPost).clickPostButton();
+
+        // Post appears under most recent posts
+        assertThat(buzzPage.publishedPostArea.getTextPostContentFromNewestPost()).isEqualTo(textForPost);
     }
 }
