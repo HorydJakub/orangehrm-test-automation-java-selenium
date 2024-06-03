@@ -9,6 +9,7 @@ import com.jakubhoryd.pages.LoginPage;
 import com.jakubhoryd.tests.BaseTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -41,8 +42,14 @@ public class AddNewPostTest extends BaseTest {
         // Redirected to 'Dashboard' page, go to 'Buzz' page
         dashboardPage.sidenav.goToMenu(NavmenuOption.BUZZ);
 
+        // Wait for posts to load
+        wait.until(ExpectedConditions.visibilityOf(buzzPage.publishedPostArea.getNewestPost()));
+
         // Publish new post without attachments
         buzzPage.publishNewPostMenu.enterPostText(textForPost).clickPostButton();
+
+        // Wait for success indicator to appear
+        buzzPage.waitForSuccessIndicator();
 
         // Post appears under most recent posts
         assertThat(buzzPage.publishedPostArea.getTextPostContentFromNewestPost()).isEqualTo(textForPost);
