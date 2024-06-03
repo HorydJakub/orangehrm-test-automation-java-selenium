@@ -10,7 +10,7 @@ public class DashboardPage extends BasicPanelPage{
     public Navbar navbar;
 
     public DashboardPage(WebDriver driver, WebDriverWait wait) {
-        super(driver);
+        super(driver, wait);
         PageFactory.initElements(driver, this);
         this.navbar = new Navbar(driver);
     }
